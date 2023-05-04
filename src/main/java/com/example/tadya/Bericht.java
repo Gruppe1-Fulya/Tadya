@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Bericht {
     enum Zustand {
-        yikilmis,
+        yikilmis, //za
         orta,
         saglam
     }
