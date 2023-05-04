@@ -9,5 +9,4 @@ public class TadyaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TadyaApplication.class, args);
 	}
-
 }
