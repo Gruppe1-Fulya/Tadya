@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>Tadya</title>
-        <meta charset="utf-8">
-        <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&setMkt=tr-TR&setLang=tr&branch=release&key=AtEGXpWltd3FqxpW2NOpPSpz_YQb5XUTt1dwFLrQbtSEyvA1GwIo8TnARNadz3iS' async defer></script>
-        <link rel="stylesheet" href="../css/style.css">
-        <script type='text/javascript'>
+<head>
+    <title>Tadya</title>
+    <meta charset="utf-8">
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&setMkt=tr-TR&setLang=tr&branch=release&key=AtEGXpWltd3FqxpW2NOpPSpz_YQb5XUTt1dwFLrQbtSEyvA1GwIo8TnARNadz3iS' async defer></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <script type='text/javascript'>
+            function addClickHandlerToPolygons(polygons) {
+                for (let i = 0; i < polygons.length; i++) {
+                    Microsoft.Maps.Events.addHandler(polygons[i], 'click', function (e) {
+                        // Show an empty infobox when a polygon is clicked
+                        showInfobox(e.target);
+                    });
+                }
+            }
+            function showInfobox(polygon) {
+                // Set the infobox options with the polygon location
+                infobox.innerHTML = "<b>Type:</b> Building";
+                infobox.style.display = 'block';
+            }
             function GetMap() {
-                //var xmlhttp = new XMLHttpRequest();
-                //
-                //xmlhttp.onreadystatechange = function() {
-                //    if (this.readyState == 4 && this.status == 200) {
-                //      // Parse the GeoJSON data
-                //      var geojson = JSON.parse(this.responseText);
-                //    
-                //      // Convert the GeoJSON data to a Microsoft.Maps.Layer
-                //      var layer = Microsoft.Maps.GeoJson.read(geojson);
-                //    
-                //      // Add the layer to the map
-                //      map.layers.add(layer);
-                //    }
-                //};
 
                 var map = new Microsoft.Maps.Map('#tadyaMap', {
                     credentials: 'AtEGXpWltd3FqxpW2NOpPSpz_YQb5XUTt1dwFLrQbtSEyvA1GwIo8TnARNadz3iS',
@@ -30,62 +29,24 @@
                     zoom: 14
                 });
 
-                //var center = map.getCenter();
-                //var pushpin = new Microsoft.Maps.Pushpin(center, {
-                //    title: 'enkaz altı',
-                //    text: '2'
-                //});
-                //
-                //map.entities.push(pushpin);
-
-                //Microsoft.Maps.Events.addHandler(pushpin, 'mousedown', function () { highlight('pushpinMousedown'); });
-                //Microsoft.Maps.Events.addHandler(pushpin, 'mouseout', function () { highlight('pushpinMouseout'); });
-                //Microsoft.Maps.Events.addHandler(pushpin, 'mouseover', function () { highlight('pushpinMouseover'); });
-                //Microsoft.Maps.Events.addHandler(pushpin, 'mouseup', function () { highlight('pushpinMouseup'); });
-                //Microsoft.Maps.Events.addHandler(pushpin, 'click', function () { getInfo(pushpin) });
-
-
-                //function getInfo(pushpin) {
-                //    console.log("çalıştı");
-                //    var pushpinInfoDiv = document.getElementById("info");
-                //    var pushpinInfo = {
-                //      location: pushpin.getLocation(),
-                //      title: pushpin.getTitle(),
-                //      text: pushpin.getText(),
-                //      icon: pushpin.getIcon(),
-                //      // Add any other properties you want to retrieve
-                //    };
-                //    pushpinInfoDiv.innerHTML = '<h3>' + pushpinInfo.title + '</h3>' +
-                //    '<p>' + pushpinInfo.text + '</p>' +
-                //    '<p>Latitude: ' + pushpinInfo.location.latitude + '</p>' +
-                //    '<p>Longitude: ' + pushpinInfo.location.longitude +'</p>';
-                //}
+                //Create an infobox at the center of the map but don't show it.
+                infobox = document.getElementById('infobox');
 
                 Microsoft.Maps.loadModule('Microsoft.Maps.GeoJson', function () {
                     Microsoft.Maps.GeoJson.readFromUrl('../../data/beykozz.geojson',
                         function (beykoz) {
                             //Add the shape(s) to the map.
                             map.entities.push(beykoz);
-                            //Microsoft.Maps.Events.addHandler(map, 'viewchangend', function () {
-                               // if (map.getZoom() < 16) {
-                                //    beykoz.setOptions({ visible: false });
-                                //} else {
-                                  //  beykoz.setOptions({ visible: true });
-                                //}
-                                //});
+
+                            // Add a click event handler to each polygon
+                            addClickHandlerToPolygons(beykoz);
                         });
                 });
-            
-
-            
-                //document.addEventListener("DOMContentLoaded", function () {
-                //    GetMap();
-                //});
-            
             }
         </script>
-    </head>
-    <body id="page2">
-        <div id="tadyaMap"> </div>
-    </body>
+</head>
+<body id="page2">
+<div id="tadyaMap"> </div>
+<div id="infobox" style="display: none;"></div>
+</body>
 </html>
