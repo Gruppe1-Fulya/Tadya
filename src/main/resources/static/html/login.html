@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tadya</title>
+  <style>
+        body {
+            background-color: grey;
+        }
+        #logo {
+            float: left;
+        }
+        #form {
+            float: right;
+        }
+        h1 {
+            color: white;
+            font-family: "Lucida Handwriting", cursive;
+        }
+        img {
+            max-width: 800px;
+            height: auto;
+        }
+        #image {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+    </style>
+  <script>
+        function validate() {
+            var id = document.getElementById("id").value;
+            var password = document.getElementById("password").value;
+
+            // Connect to MySQL database and check if id and password match
+            // If they match, redirect to another HTML page
+            var mysql = require('mysql');
+            var connection = mysql.createConnection({
+                host     : 'localhost',
+                user     : 'me',
+                password : 'secret',
+                database : 'my_db'
+            });
+
+            connection.connect();
+
+            connection.query('SELECT * from users WHERE id = ? AND password = ?', [id, password], function (error, results, fields) {
+                if (error) throw error;
+                if (results.length > 0) {
+                    window.location.href = "tayda.html";
+                } else {
+                    alert("Invalid ID or password");
+                }
+            });
+            connection.end();
+        }
+    </script>
+</head>
+<body>
+<div id="logo">
+  <h1>tadya</h1>
+  <img id="image" src="fakemap.png" alt="image">
+</div>
+<div id="form">
+  <h2>Autorisierte Einlogen</h2>
+  <form onsubmit="validate(); return false;">
+    <label for="id">Autorisierte ID:</label><br>
+    <input type="text" id="id" name="id"><br>
+    <label for="password">Passwort:</label><br>
+    <input type="password" id="password" name="password"><br><br>
+    <input type="submit" value="Einlogen">
+  </form>
+</div>
+</body>
+</html>
