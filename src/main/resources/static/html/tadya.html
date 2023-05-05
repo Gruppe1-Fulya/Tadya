@@ -10,15 +10,16 @@
             function addClickHandlerToPolygons(polygons) {
                 for (let i = 0; i < polygons.length; i++) {
                     Microsoft.Maps.Events.addHandler(polygons[i], 'click', function (e) {
-                        // Show an empty infobox when a polygon is clicked
-                        showInfobox(e.target);
+                        // Show an empty databox when a polygon is clicked
+                        showDatabox(e.target);
                     });
                 }
             }
-            function showInfobox(polygon) {
-                // Set the infobox options with the polygon location
-                infobox.innerHTML = "<b>Type:</b> Building";
-                infobox.style.display = 'block';
+            function showDatabox(polygon) {
+                // Set the databox options
+                //databox.innerHTML = "<b>Type:</b> Building";
+                databox.style.display = 'block';
+
             }
             function GetMap() {
 
@@ -28,9 +29,6 @@
                     mapTypeId: Microsoft.Maps.MapTypeId.road,
                     zoom: 14
                 });
-
-                //Create an infobox at the center of the map but don't show it.
-                infobox = document.getElementById('infobox');
 
                 Microsoft.Maps.loadModule('Microsoft.Maps.GeoJson', function () {
                     Microsoft.Maps.GeoJson.readFromUrl('../../data/beykozz.geojson',
@@ -47,6 +45,25 @@
 </head>
 <body id="page2">
 <div id="tadyaMap"> </div>
-<div id="infobox" style="display: none;"></div>
+<div id="databox">
+    <div id="title">Level of destruction</div>
+    <div class="buttons">
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>4</button>
+        <button>5</button>
+    </div>
+    <div class="rows">
+        <div class="row">Building name:</div>
+        <div class="row">Osm id:</div>
+        <div class="row">Tote:</div>
+        <div class="row">Verletzte:</div>
+        <div class="row">Autorisierte:</div>
+        <div class="row">Einrichtung:</div>
+        <div class="row">Nummer:</div>
+    </div>
+    <div><button>send request</button></div>
+</div>
 </body>
 </html>
