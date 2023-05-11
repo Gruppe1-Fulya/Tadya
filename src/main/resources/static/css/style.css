@@ -3,6 +3,7 @@
   background-size: cover;
   backdrop-filter: blur(2px);
   display: flex;
+  flex-direction: row; /* set the main axis as horizontal */
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -58,7 +59,7 @@
   display: none;
   position: absolute;
   top: 50%;
-  right: 12;
+  right: calc(100% - 450px); /* set the right position to be right of center */
   transform: translateY(-50%);
   width: 200px;
   background-color: rgb(163, 161, 190);
@@ -102,4 +103,29 @@
 
 #databox .rows .row {
   padding: 10px;
+}
+
+#databox2 {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: calc(100% - 230px); /* set the right position to be left of center */
+  transform: translateY(-50%);
+  width: 200px;
+  background-color: rgb(78, 72, 165);
+  border: 1px solid rgb(90, 71, 195);
+  padding: 10px;
+  z-index: 1;
+}
+
+#databox2 h2 {
+  margin-top: 0;
+}
+
+#databox2 p {
+  margin: 10px 0;
+}
+
+#databox2 .close {
+  position: absolute;
 }
