@@ -10,19 +10,19 @@
             function addClickHandlerToPolygons(polygons) {
                 for (let i = 0; i < polygons.length; i++) {
                     Microsoft.Maps.Events.addHandler(polygons[i], 'click', function (e) {
-                        // Show an empty databox when a polygon is clicked
+                        // Shows a databox when a polygon is clicked
                         showDatabox(e.target);
                     });
                 }
             }
+
             function showDatabox(polygon) {
                 // Set the databox options
-                //databox.innerHTML = "<b>Type:</b> Building";
                 databox.style.display = 'block';
-
+                databox2.style.display = 'block';
             }
-            function GetMap() {
 
+            function GetMap() {
                 var map = new Microsoft.Maps.Map('#tadyaMap', {
                     credentials: 'AtEGXpWltd3FqxpW2NOpPSpz_YQb5XUTt1dwFLrQbtSEyvA1GwIo8TnARNadz3iS',
                     center: new Microsoft.Maps.Location(41.1267716, 29.109357),
@@ -33,7 +33,7 @@
                 Microsoft.Maps.loadModule('Microsoft.Maps.GeoJson', function () {
                     Microsoft.Maps.GeoJson.readFromUrl('../../data/beykozz.geojson',
                         function (beykoz) {
-                            //Add the shape(s) to the map.
+                            //Add the shapes to the map.
                             map.entities.push(beykoz);
 
                             // Add a click event handler to each polygon
@@ -64,6 +64,21 @@
         <div class="row">Nummer:</div>
     </div>
     <div><button>send request</button></div>
+</div>
+<div id="databox2">
+    <div id="title">Level of destruction</div>
+    <div class="buttons">
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>4</button>
+        <button>5</button>
+    </div>
+    <div class="rows">
+        <div class="row">Tote:</div>
+        <div class="row">Verletzte:</div>
+    </div>
+    <div><button>bestätigen</button></div>
 </div>
 </body>
 </html>
