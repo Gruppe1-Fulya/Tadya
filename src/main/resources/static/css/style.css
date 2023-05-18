@@ -58,14 +58,14 @@
 #databox {
   display: none;
   position: absolute;
-  top: 50%;
-  right: calc(100% - 450px); /* set the right position to be right of center */
-  transform: translateY(-50%);
+  top: 250px;
+  right: calc(100% - 230px);
   width: 200px;
-  background-color: rgb(163, 161, 190);
-  border: 1px solid rgb(172, 171, 178);
+  background-color: #f0f0f0;
+  border: 1px solid #d0d0d0;
   padding: 10px;
   z-index: 1;
+  font-family: Arial, sans-serif;
 }
 
 #databox h2 {
@@ -89,33 +89,55 @@
 }
 
 #databox .buttons {
-  display: flex;
+    display: flex;
 }
 
 #databox .buttons button {
-  flex: 1;
+    flex: 1;
+    margin: 5px;
+    padding: 5px 10px;
+}
+
+#databox .buttons button:nth-of-type(1) {
+    background-color: #00ff00;
+}
+
+#databox .buttons button:nth-of-type(2) {
+    background-color: #7fff00;
+}
+
+#databox .buttons button:nth-of-type(3) {
+    background-color: #ffff00;
+}
+
+#databox .buttons button:nth-of-type(4) {
+    background-color: #ff7f00;
+}
+
+#databox .buttons button:nth-of-type(5) {
+    background-color: #ff0000;
 }
 
 #databox .rows {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 #databox .rows .row {
-  padding: 10px;
+    padding: 10px;
 }
 
 #databox2 {
-  display: none;
-  position: absolute;
-  top: 50%;
-  right: calc(100% - 230px); /* set the right position to be left of center */
-  transform: translateY(-50%);
-  width: 200px;
-  background-color: rgb(78, 72, 165);
-  border: 1px solid rgb(90, 71, 195);
-  padding: 10px;
-  z-index: 1;
+    display: none;
+    position: absolute;
+    top: 250px; /* set the top position to be the same as #databox */
+    right: calc(100% - 450px);
+    width: 200px;
+    background-color:#f0f0f0 ;
+    border:1px solid #d0d0d0 ;
+    padding:10px ;
+    z-index :1 ;
+    font-family :Arial , sans-serif ;
 }
 
 #databox2 h2 {
@@ -128,4 +150,34 @@
 
 #databox2 .close {
   position: absolute;
+}
+
+#databox2 .buttons button {
+    margin: 2px;
+    padding: 5px 10px;
+}
+
+#databox2 .rows input[type="text"] {
+    margin: 5px;
+    padding: 5px;
+}
+
+#databox2 .buttons button:nth-of-type(1) {
+    background-color: #00ff00;
+}
+
+#databox2 .buttons button:nth-of-type(2) {
+    background-color: #7fff00;
+}
+
+#databox2 .buttons button:nth-of-type(3) {
+    background-color: #ffff00;
+}
+
+#databox2 .buttons button:nth-of-type(4) {
+    background-color: #ff7f00;
+}
+
+#databox2 .buttons button:nth-of-type(5) {
+    background-color: #ff0000;
 }
