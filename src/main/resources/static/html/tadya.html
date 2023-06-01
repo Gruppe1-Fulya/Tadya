@@ -1,50 +1,77 @@
 <!DOCTYPE html>
-
 <html>
 <head>
     <title>Tadya</title>
-    <meta charset="utf-8">
-    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&setMkt=tr-TR&setLang=tr&branch=release&key=AtEGXpWltd3FqxpW2NOpPSpz_YQb5XUTt1dwFLrQbtSEyvA1GwIo8TnARNadz3iS' async defer></script>
-    <link rel="stylesheet" href="../css/style.css">
-    <script type='text/javascript'>
-            function addClickHandlerToPolygons(polygons) {
-                for (let i = 0; i < polygons.length; i++) {
-                    Microsoft.Maps.Events.addHandler(polygons[i], 'click', function (e) {
-                        // Shows a databox when a polygon is clicked
-                        showDatabox(e.target);
-                    });
-                }
+    <meta charset="utf-8" />
+    <script
+            type="text/javascript"
+            src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap&setMkt=tr-TR&setLang=tr&branch=release&key=AtEGXpWltd3FqxpW2NOpPSpz_YQb5XUTt1dwFLrQbtSEyvA1GwIo8TnARNadz3iS"
+            async
+            defer
+    ></script>
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      .clicked {
+        /* add styles for clicked button */
+      }
+    </style>
+    <script type="text/javascript">
+      let levelofdestruction;
+
+      function addClickHandlerToPolygons(polygons) {
+        for (let i = 0; i < polygons.length; i++) {
+          Microsoft.Maps.Events.addHandler(polygons[i], "click", function (e) {
+            // Shows a databox when a polygon is clicked
+            showDatabox(e.target);
+          });
+        }
+      }
+
+      function showDatabox(polygon) {
+        // Set the databox options
+        databox.style.display = "block";
+        databox2.style.display = "block";
+        databox3.style.display = "block";
+      }
+
+      function GetMap() {
+        var map = new Microsoft.Maps.Map("#tadyaMap", {
+          credentials:
+            "AtEGXpWltd3FqxpW2NOpPSpz_YQb5XUTt1dwFLrQbtSEyvA1GwIo8TnARNadz3iS",
+          center: new Microsoft.Maps.Location(41.1267716, 29.109357),
+          mapTypeId: Microsoft.Maps.MapTypeId.road,
+          zoom: 14,
+        });
+
+        Microsoft.Maps.loadModule("Microsoft.Maps.GeoJson", function () {
+          Microsoft.Maps.GeoJson.readFromUrl(
+            "../../data/beykozz.geojson",
+            function (beykoz) {
+              //Add the shapes to the map.
+              map.entities.push(beykoz);
+
+              // Add a click event handler to each polygon
+              addClickHandlerToPolygons(beykoz);
             }
+          );
+        });
+      }
 
-            function showDatabox(polygon) {
-                // Set the databox options
-                databox.style.display = 'block';
-                databox2.style.display = 'block';
-            }
-
-            function GetMap() {
-                var map = new Microsoft.Maps.Map('#tadyaMap', {
-                    credentials: 'AtEGXpWltd3FqxpW2NOpPSpz_YQb5XUTt1dwFLrQbtSEyvA1GwIo8TnARNadz3iS',
-                    center: new Microsoft.Maps.Location(41.1267716, 29.109357),
-                    mapTypeId: Microsoft.Maps.MapTypeId.road,
-                    zoom: 14
-                });
-
-                Microsoft.Maps.loadModule('Microsoft.Maps.GeoJson', function () {
-                    Microsoft.Maps.GeoJson.readFromUrl('../../data/beykozz.geojson',
-                        function (beykoz) {
-                            //Add the shapes to the map.
-                            map.entities.push(beykoz);
-
-                            // Add a click event handler to each polygon
-                            addClickHandlerToPolygons(beykoz);
-                        });
-                });
-            }
-        </script>
+      window.addEventListener("load", () => {
+        const buttons = document.querySelectorAll("#databox2 .buttons button, #databox3 .buttons button");
+        buttons.forEach((button, index) => {
+          button.addEventListener("click", () => {
+            levelofdestruction = index + 1;
+            // visually indicate which button was clicked
+            buttons.forEach((btn) => btn.classList.remove("clicked"));
+            button.classList.add("clicked");
+          });
+        });
+      });
+    </script>
 </head>
 <body id="page2">
-<div id="tadyaMap"> </div>
+<div id="tadyaMap"></div>
 <div id="databox">
     <div id="title">Level of destruction</div>
     <div class="buttons">
@@ -55,7 +82,7 @@
         <button>5</button>
     </div>
     <div class="rows">
-        <div class="row">Level of destruction:</div>
+        <div class="row"> Level of destruction:</div>
         <div class="row">Bericht Zeit:</div>
         <div class="row">Meldung Zeit:</div>
         <div class="row">Tote:</div>
@@ -76,12 +103,26 @@
         <button>5</button>
     </div>
     <div class="rows">
+        <div class="row"><br></div>
         <div class="row">Tote:</div>
-        <input type="text" id="id" name="Tote:"><br>
+        <input type="text" id="id" name="Tote:" /><br />
         <div class="row">Verletzte:</div>
-        <input type="text" id="id" name="Verletzte"><br>
+        <input type="text" id="id" name="Verletzte" /><br />
+        <div class="row"><br></div>
     </div>
     <div><button>bestätigen</button></div>
+</div>
+<div id="databox3">
+    <div id="title">Level of destruction</div>
+    <div class="buttons">
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>4</button>
+        <button>5</button>
+    </div>
+    <div class="row"><br></div>
+    <div id="helpbutton"><button>Click me!</button></div>
 </div>
 </body>
 </html>

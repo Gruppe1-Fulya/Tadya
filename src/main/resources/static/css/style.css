@@ -181,3 +181,105 @@
 #databox2 .buttons button:nth-of-type(5) {
     background-color: #ff0000;
 }
+
+#databox3 {
+    display: none;
+    position: absolute;
+    top: 250px;
+    right: calc(100% - 650px);
+    width: 180px;
+    background-color: #f0f0f0;
+    border: 1px solid #d0d0d0;
+    padding: 10px;
+    z-index: 1;
+    font-family: Arial, sans-serif;
+  }
+
+  #databox3 h2 {
+    margin-top: 0;
+  }
+
+  #databox3 p {
+    margin: 10px 0;
+  }
+
+  #databox3 .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  #databox3 .close:hover {
+    color: #ccc;
+  }
+
+  #databox3 .buttons {
+      display: flex;
+  }
+
+  #databox3 .buttons button {
+    margin: 2px;
+    padding: 5px 10px;
+}
+
+  #databox3 .buttons button:nth-of-type(1) {
+      background-color: #00ff00;
+  }
+
+  #databox3 .buttons button:nth-of-type(2) {
+      background-color: #7fff00;
+  }
+
+  #databox3 .buttons button:nth-of-type(3) {
+      background-color: #ffff00;
+  }
+
+  #databox3 .buttons button:nth-of-type(4) {
+      background-color: #ff7f00;
+  }
+
+  #databox3 .buttons button:nth-of-type(5) {
+      background-color: #ff0000;
+  }
+
+  #databox3 .rows {
+      display: flex;
+      flex-direction: column;
+  }
+
+  #databox3 .rows .row {
+      padding: 10px;
+  }
+
+  #helpbutton button {
+    font-size: 24px;
+    padding: 12px 24px;
+    background-color: #dc2525; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  #helpbutton button:hover {
+    background-color: #9b0b17;
+  }
+
+.clicked {
+    /* add styles for clicked button */
+    border-style:solid ;
+    border-width :3px ;
+    border-color:black ;
+    outline:none ;
+    box-shadow:none ;
+    transform:none ;
+    transition:none ;
+    animation:none ;
+    z-index :9999 ;
+    position:relative ;
+ }
