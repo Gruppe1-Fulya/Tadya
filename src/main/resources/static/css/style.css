@@ -1,5 +1,5 @@
 #page1 {
-  background-image: url("istanbul.jpg");
+  background-image: url("../../img/istanbul.jpg");
   background-size: cover;
   backdrop-filter: blur(2px);
   display: flex;
