@@ -59,8 +59,8 @@
   display: none;
   position: absolute;
   top: 250px;
-  right: calc(100% - 230px);
-  width: 200px;
+  left: calc(0½);
+  width: 270px;
   background-color: #f0f0f0;
   border: 1px solid #d0d0d0;
   padding: 10px;
@@ -74,6 +74,11 @@
 
 #databox p {
   margin: 10px 0;
+  p {text-align: center;}
+}
+
+#title {
+    text-align: center;
 }
 
 #databox .close {
@@ -131,7 +136,7 @@
     display: none;
     position: absolute;
     top: 250px; /* set the top position to be the same as #databox */
-    right: calc(100% - 450px);
+    left: calc(0% + 300px);
     width: 200px;
     background-color:#f0f0f0 ;
     border:1px solid #d0d0d0 ;
@@ -186,7 +191,7 @@
     display: none;
     position: absolute;
     top: 250px;
-    right: calc(100% - 650px);
+    left: calc(0% + 520px);
     width: 180px;
     background-color: #f0f0f0;
     border: 1px solid #d0d0d0;
