@@ -27,8 +27,9 @@ public class JdbcGebeaudeRepository implements GebeaudeRepository {
     }
     @Override
     public void save(Gebeaude building) {
-        jdbcTemplate.update("INSERT INTO gebeaude (osm_id, mel_zeit, fclass, besteatigung, bericht_id, auto_id) VALUES(?,?,?,?,?,?)", building.osm_id(),
-                LocalDateTime.now(), building.fclass(), building.besteatigung(), building.bericht_id(), building.auto_id());
+        jdbcTemplate.update("INSERT INTO gebeaude (osm_id, mel_zeit, fclass, besteatigung, bericht_id, auto_id) VALUES(?,?,?,?,?,?)", new Object[]
+                {building.osm_id(), LocalDateTime.now(), building.fclass(),
+                        building.besteatigung(), building.bericht_id(), building.auto_id()});
     }
     /*
     @Override

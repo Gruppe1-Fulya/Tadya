@@ -27,7 +27,7 @@ public class GebeaudeController {
     }
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/add/{osm_id}")
-    public void add_test(@RequestParam(required = false) @PathVariable Integer osm_id) {
+    public void add_test(@PathVariable Integer osm_id) {
 
         Gebeaude g = new Gebeaude(
                 osm_id, "building",
