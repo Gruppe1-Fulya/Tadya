@@ -1,11 +1,18 @@
 package com.example.tadya.model;
 
+import jakarta.validation.constraints.NotNull;
+import org.springframework.data.annotation.Id;
+
+import java.time.LocalDateTime;
+
 public record Gebeaude(
-        String osm_id,
+        @Id
+        @NotNull
+        Integer osm_id,
         String fclass,
-        String mel_zeit,
+        LocalDateTime mel_zeit,
         boolean besteatigung,
-        Bericht bericht,
-        Autorisierte autorisierte
+        Integer bericht_id,
+        Integer auto_id
 ) {
 }
