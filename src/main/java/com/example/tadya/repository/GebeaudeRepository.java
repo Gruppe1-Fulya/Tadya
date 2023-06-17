@@ -9,7 +9,6 @@ import java.util.List;
 public interface GebeaudeRepository {
     void save(Gebeaude building);
 
-
     //int update(Gebeaude building);
 
     Gebeaude findById(Integer id);

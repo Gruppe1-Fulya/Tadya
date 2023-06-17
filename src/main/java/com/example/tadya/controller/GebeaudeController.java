@@ -45,7 +45,7 @@ public class GebeaudeController {
         repository.save(gebeaude);
     }
 
-    @DeleteMapping("/{osm_id}")
+    @DeleteMapping("/delete/{osm_id}")
     public void deleteBuilding(@PathVariable Integer osm_id) {
         repository.deleteById(osm_id);
     }
