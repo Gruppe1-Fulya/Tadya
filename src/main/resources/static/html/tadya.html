@@ -9,6 +9,7 @@
             async
             defer
     ></script>
+    <script src="../js/handler.js"> </script>
     <link rel="stylesheet" href="../css/style.css" />
     <style>
       .clicked {
@@ -23,6 +24,7 @@
           Microsoft.Maps.Events.addHandler(polygons[i], "click", function (e) {
             // Shows a databox when a polygon is clicked
             showDatabox(e.target);
+            alert(e.target.metadata.osm_id);
           });
         }
       }
@@ -32,29 +34,6 @@
         databox.style.display = "block";
         databox2.style.display = "block";
         databox3.style.display = "block";
-      }
-
-      function GetMap() {
-        var map = new Microsoft.Maps.Map("#tadyaMap", {
-          credentials:
-            "AtEGXpWltd3FqxpW2NOpPSpz_YQb5XUTt1dwFLrQbtSEyvA1GwIo8TnARNadz3iS",
-          center: new Microsoft.Maps.Location(41.1267716, 29.109357),
-          mapTypeId: Microsoft.Maps.MapTypeId.road,
-          zoom: 14,
-        });
-
-        Microsoft.Maps.loadModule("Microsoft.Maps.GeoJson", function () {
-          Microsoft.Maps.GeoJson.readFromUrl(
-            "../../data/beykozz.geojson",
-            function (beykoz) {
-              //Add the shapes to the map.
-              map.entities.push(beykoz);
-
-              // Add a click event handler to each polygon
-              addClickHandlerToPolygons(beykoz);
-            }
-          );
-        });
       }
 
       window.addEventListener("load", () => {
