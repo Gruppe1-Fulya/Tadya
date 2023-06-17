@@ -65,6 +65,19 @@
       <input type="password" id="password" name="password"><br><br>
       <input type="submit" value="Einlogen">
     </form>
+    <script>
+      function validate() {
+        //id ve passwort variableye atanır
+        var id = document.getElementById("id").value;
+        var password = document.getElementById("password").value;
+        //psudo kontrol
+        if (id === "admin" && password === "12345") {
+            window.location.href = "tadya.html";
+        } else {
+            alert("Inkorrekt ID oder passwort.");
+        }
+      }
+    </script>
   </div>
 </div>
 </body>
