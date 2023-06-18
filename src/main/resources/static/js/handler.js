@@ -71,3 +71,7 @@ async function getBuildings() {
         console.log('Error: ', error);
     }
 }
+
+async function sendBuildings(polygon) {
+    
+}
