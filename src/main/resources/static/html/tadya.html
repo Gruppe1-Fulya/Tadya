@@ -11,9 +11,6 @@
             defer
     ></script>
     <script src="../js/handler.js"> </script>
-
-    <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap&setMkt=tr-TR&setLang=tr&branch=release&key=AtEGXpWltd3FqxpW2NOpPSpz_YQb5XUTt1dwFLrQbtSEyvA1GwIo8TnARNadz3iS" async defer></script>
-
     <link rel="stylesheet" href="../css/style.css" />
     <script type="text/javascript">
     let levelofdestruction;
@@ -26,7 +23,7 @@
             alert(e.target.metadata.osm_id);
           });
         }
-
+      }    
     function showDatabox(polygon) {
       // Databoxların hepsini görünür yapar
       databox.style.display = "block";
@@ -43,15 +40,15 @@
     }
 
 
-     window.addEventListener("load", () => {
-       const buttons = document.querySelectorAll("#databox2 .buttons button, #databox3 .buttons button");
-       buttons.forEach((button, index) => {
-         button.addEventListener("click", () => {
-           levelofdestruction = index + 1;
-           // visually indicate which button was clicked
-           buttons.forEach((btn) => btn.classList.remove("clicked"));
-           button.classList.add("clicked");
-         });
+    window.addEventListener("load", () => {
+      const buttons = document.querySelectorAll("#databox2 .buttons button, #databox3 .buttons button");
+      buttons.forEach((button, index) => {
+        button.addEventListener("click", () => {
+          levelofdestruction = index + 1;
+          // visually indicate which button was clicked
+          buttons.forEach((btn) => btn.classList.remove("clicked"));
+          button.classList.add("clicked");
+        });
       });
     });
   </script>
