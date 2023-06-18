@@ -32,7 +32,6 @@ public class GebeaudeService implements GebeaudeRepository {
                 {building.osm_id(), LocalDateTime.now(), building.fclass(),
                         building.besteatigung(), building.bericht_id(), building.auto_id()});
     }
-
     /*
     @Override
     public int update(Tutorial tutorial) {
