@@ -9,17 +9,20 @@
 <body id="page1">
 <div class="container">
     <h1 class="heading">Tadya</h1>
-    <button class="button" id="redirectBtn">Normal</button>
-    <button class="button" id="autorisierte">Autorisierte</button>
+    <button class="button" id="redirectBtn">Normal</button> <!-- Admin olmayan butonu -->
+    <button class="button" id="autorisierte">Autorisierte</button> <!-- Admin butonu -->
 </div>
 <div class="creators">
     <p>Created by Berkay Biçer and Yiğit Alıcıkuş</p>
 </div>
 <script>
         document.getElementById("redirectBtn").addEventListener("click", function() {
+        //tıklanınca tadya sayfasına git
         window.location.href = "html/tadya.html";
         });
+
         document.getElementById("autorisierte").addEventListener("click", function() {
+        //tıklanınca login sayfasına git
         window.location.href = "html/login.html";
         });
     </script>

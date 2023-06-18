@@ -3,6 +3,7 @@
 <head>
     <title>Tadya</title>
     <meta charset="utf-8" />
+
     <script
             type="text/javascript"
             src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap&setMkt=tr-TR&setLang=tr&branch=release&key=AtEGXpWltd3FqxpW2NOpPSpz_YQb5XUTt1dwFLrQbtSEyvA1GwIo8TnARNadz3iS"
@@ -10,14 +11,12 @@
             defer
     ></script>
     <script src="../js/handler.js"> </script>
+
+    <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap&setMkt=tr-TR&setLang=tr&branch=release&key=AtEGXpWltd3FqxpW2NOpPSpz_YQb5XUTt1dwFLrQbtSEyvA1GwIo8TnARNadz3iS" async defer></script>
+
     <link rel="stylesheet" href="../css/style.css" />
-    <style>
-      .clicked {
-        /* add styles for clicked button */
-      }
-    </style>
     <script type="text/javascript">
-      let levelofdestruction;
+    let levelofdestruction;
 
       function addClickHandlerToPolygons(polygons) {
         for (let i = 0; i < polygons.length; i++) {
@@ -27,32 +26,41 @@
             alert(e.target.metadata.osm_id);
           });
         }
-      }
 
-      function showDatabox(polygon) {
-        // Set the databox options
-        databox.style.display = "block";
-        databox2.style.display = "block";
-        databox3.style.display = "block";
-      }
+    function showDatabox(polygon) {
+      // Databoxların hepsini görünür yapar
+      databox.style.display = "block";
+      databox2.style.display = "block";
+      databox3.style.display = "block";
+    }
 
-      window.addEventListener("load", () => {
-        const buttons = document.querySelectorAll("#databox2 .buttons button, #databox3 .buttons button");
-        buttons.forEach((button, index) => {
-          button.addEventListener("click", () => {
-            levelofdestruction = index + 1;
-            // visually indicate which button was clicked
-            buttons.forEach((btn) => btn.classList.remove("clicked"));
-            button.classList.add("clicked");
-          });
-        });
+    function closeDatabox(databoxId) {
+      //Tıklanan databoxı kapatır
+      const databox = document.getElementById(databoxId);
+      if (databox) {
+        databox.style.display = "none";
+      }
+    }
+
+
+     window.addEventListener("load", () => {
+       const buttons = document.querySelectorAll("#databox2 .buttons button, #databox3 .buttons button");
+       buttons.forEach((button, index) => {
+         button.addEventListener("click", () => {
+           levelofdestruction = index + 1;
+           // visually indicate which button was clicked
+           buttons.forEach((btn) => btn.classList.remove("clicked"));
+           button.classList.add("clicked");
+         });
       });
-    </script>
+    });
+  </script>
 </head>
 <body id="page2">
 <div id="tadyaMap"></div>
-<div id="databox">
-    <div id="title"> Level of destruction</div>
+<div id="databox"> <!-- Databox1 ayarları-->
+    <div class="close-button" onclick="closeDatabox('databox')">X</div>
+    <div id="title">Level of destruction</div>
     <div class="buttons">
         <button>1</button>
         <button>2</button>
@@ -62,8 +70,8 @@
     </div>
     <div class="rows">
         <div class="row">Level of destruction: 4</div>
-        <div class="row">Bericht Zeit:2023-06-01 16:02:12</div>
-        <div class="row">Meldung Zeit:2023-06-01 17:09:42</div>
+        <div class="row">Bericht Zeit: 2023-06-01 16:02:12</div>
+        <div class="row">Meldung Zeit: 2023-06-01 17:09:42</div>
         <div class="row">Tote: 0</div>
         <div class="row">Verletzte: 8</div>
         <div class="row">Autorisierte: Ahmet Sonuç</div>
@@ -71,7 +79,8 @@
         <div class="row">Nummer: 05214354532</div>
     </div>
 </div>
-<div id="databox2">
+<div id="databox2"> <!-- Databox 2 ayarları -->
+    <div class="close-button" onclick="closeDatabox('databox2')">X</div>
     <div id="title">Level of destruction</div>
     <div class="buttons">
         <button>1</button>
@@ -88,9 +97,10 @@
         <input type="text" id="id" name="Verletzte" /><br />
         <div class="row"><br></div>
     </div>
-    <div><button>bestätigen</button></div>
+    <div id="confirmbutton"><button>bestätigen</button></div>
 </div>
-<div id="databox3">
+<div id="databox3"> <!-- Databox 3 ayarları -->
+    <div class="close-button" onclick="closeDatabox('databox3')">X</div>
     <div id="title">Level of destruction</div>
     <div class="buttons">
         <button>1</button>
@@ -100,7 +110,7 @@
         <button>5</button>
     </div>
     <div class="row"><br></div>
-    <div id="helpbutton"><button>Click me!</button></div>
+    <div id="helpbutton"><button>Berichten</button></div>
 </div>
 </body>
 </html>
