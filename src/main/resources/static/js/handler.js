@@ -12,6 +12,7 @@ function GetMap() {
     Microsoft.Maps.Events.addHandler(map, 'viewchangeend', function () {
         zoomLevel = map.getZoom()
         hideBuildings();
+        getBuildings();
         console.log(zoomLevel);
     });
 
@@ -33,7 +34,7 @@ function GetMap() {
   }
 
 function hideBuildings() {
-    if(zoomLevel > 14) {
+    if(zoomLevel > 15) {
         var Option = {
             visible: true
         };
@@ -43,6 +44,7 @@ function hideBuildings() {
         };
     }
     polygons.forEach(polygon => {
+
         polygon.setOptions(Option);
     })
 }
@@ -54,7 +56,7 @@ function showBuilding(building){
         if (parseInt(data.metadata.osm_id) == id) {
             data.setOptions({
                 strokeColor: 'red',
-                fillColor: 'red'    
+                fillColor: Microsoft.Maps.Color.fromHex('#FF8D8D')
             })
         }
     });
@@ -73,5 +75,22 @@ async function getBuildings() {
 }
 
 async function sendBuildings(polygon) {
-    
+    const building = {
+        osm_id: parseInt(polygon.target.metadata.osm_id),
+        fclass: polygon.target.metadata.fclass,
+        mel_zeit: new Date().toJSON(),
+        besteatigung: false
+    }
+    const requestBody = JSON.stringify(building);
+    try {
+        const response = await fetch("http://localhost:8080/map/add",{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: requestBody
+        })
+    } catch (error) {
+        console.log("Error: ", error);
+    }
 }

@@ -42,7 +42,7 @@ public class GebeaudeController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
+    @PostMapping("/add")
     public void sendHelpRequest(@Valid @RequestBody Gebeaude gebeaude) {
         repository.save(gebeaude);
     }
