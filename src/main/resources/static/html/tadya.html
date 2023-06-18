@@ -15,13 +15,14 @@
     <script type="text/javascript">
     let levelofdestruction;
 
+    var currentPolygon;
     function addClickHandlerToPolygons(polygons) {
       for (let i = 0; i < polygons.length; i++) {
         Microsoft.Maps.Events.addHandler(polygons[i], "click", function (e) {
           // Shows a databox when a polygon is clicked
-
+          currentPolygon = e;
           showDatabox(e.target);
-          alert(e.target.metadata.osm_id);
+          console.log(e.target.metadata.osm_id);
         });
       }
     }    
@@ -29,6 +30,20 @@
       // Databoxların hepsini görünür yapar
       databox.style.display = "block";
       databox2.style.display = "block";
+      databox3.style.display = "block";
+    }
+
+    function showDataboxforadmin(polygon) {
+      // Databoxların hepsini görünür yapar
+      databox.style.display = "block";
+      databox2.style.display = "block";
+      databox3.style.display = "none";
+    }
+
+    function showDataboxforuser(polygon) {
+      // Databoxların hepsini görünür yapar
+      databox.style.display = "block";
+      databox2.style.display = "none";
       databox3.style.display = "block";
     }
 
@@ -52,6 +67,8 @@
         });
       });
     });
+
+
   </script>
 </head>
 <body id="page2">
@@ -99,16 +116,16 @@
 </div>
 <div id="databox3"> <!-- Databox 3 ayarları -->
     <div class="close-button" onclick="closeDatabox('databox3')">X</div>
-    <div id="title">Level of destruction</div>
-    <div class="buttons">
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>4</button>
-        <button>5</button>
-    </div>
     <div class="row"><br></div>
-    <div id="helpbutton" onclick="sendBuildings()"><button>Berichten</button></div>
+    <div id="helpbutton"><button>Berichten</button></div>
 </div>
+
+<script>
+  document.getElementById("helpbutton").addEventListener("click", function() {
+        console.log("tıkladın");
+        sendBuildings(currentPolygon);
+  });
+</script>
+
 </body>
 </html>
