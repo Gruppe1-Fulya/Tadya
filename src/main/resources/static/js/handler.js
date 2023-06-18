@@ -1,4 +1,3 @@
-
 var polygons;
 var zoomLevel;
 function GetMap() {
@@ -60,7 +59,6 @@ function showBuilding(building){
         }
     });
 }
-
 
 async function getBuildings() {
     try {
