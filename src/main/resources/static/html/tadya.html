@@ -3,19 +3,29 @@
 <head>
     <title>Tadya</title>
     <meta charset="utf-8" />
+
+    <script
+            type="text/javascript"
+            src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap&setMkt=tr-TR&setLang=tr&branch=release&key=AtEGXpWltd3FqxpW2NOpPSpz_YQb5XUTt1dwFLrQbtSEyvA1GwIo8TnARNadz3iS"
+            async
+            defer
+    ></script>
+    <script src="../js/handler.js"> </script>
+
     <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap&setMkt=tr-TR&setLang=tr&branch=release&key=AtEGXpWltd3FqxpW2NOpPSpz_YQb5XUTt1dwFLrQbtSEyvA1GwIo8TnARNadz3iS" async defer></script>
+
     <link rel="stylesheet" href="../css/style.css" />
     <script type="text/javascript">
     let levelofdestruction;
 
-    function addClickHandlerToPolygons(polygons) {
-      for (let i = 0; i < polygons.length; i++) {
-        Microsoft.Maps.Events.addHandler(polygons[i], "click", function (e) {
-          // Polygon tıklanınca databoxları açar
-          showDatabox(e.target);
-        });
-      }
-    }
+      function addClickHandlerToPolygons(polygons) {
+        for (let i = 0; i < polygons.length; i++) {
+          Microsoft.Maps.Events.addHandler(polygons[i], "click", function (e) {
+            // Shows a databox when a polygon is clicked
+            showDatabox(e.target);
+            alert(e.target.metadata.osm_id);
+          });
+        }
 
     function showDatabox(polygon) {
       // Databoxların hepsini görünür yapar
@@ -32,35 +42,16 @@
       }
     }
 
-    function GetMap() {
-      //mapi yükler ve ayarlarını yapar
-      var map = new Microsoft.Maps.Map("#tadyaMap", {
-        credentials: "AtEGXpWltd3FqxpW2NOpPSpz_YQb5XUTt1dwFLrQbtSEyvA1GwIo8TnARNadz3iS",
-        center: new Microsoft.Maps.Location(41.1267716, 29.109357),
-        mapTypeId: Microsoft.Maps.MapTypeId.road,
-        zoom: 14,
-      });
 
-      Microsoft.Maps.loadModule("Microsoft.Maps.GeoJson", function () {
-        Microsoft.Maps.GeoJson.readFromUrl("../../data/beykozz.geojson", function (beykoz) {
-          //Polygonları mape ekler
-          map.entities.push(beykoz);
-
-          //Her polygona event listener ekler
-          addClickHandlerToPolygons(beykoz);
-        });
-      });
-    }
-
-    window.addEventListener("load", () => {
-      const buttons = document.querySelectorAll("#databox2 .buttons button, #databox3 .buttons button");
-      buttons.forEach((button, index) => {
-        button.addEventListener("click", () => {
-          levelofdestruction = index + 1;
-          // Tıklanan level of destruction butonunu css dosyasındaki .clicked versiyonuna çevirir (etrafı siyah çizgi ile işaretlenir)
-          buttons.forEach((btn) => btn.classList.remove("clicked"));
-          button.classList.add("clicked");
-        });
+     window.addEventListener("load", () => {
+       const buttons = document.querySelectorAll("#databox2 .buttons button, #databox3 .buttons button");
+       buttons.forEach((button, index) => {
+         button.addEventListener("click", () => {
+           levelofdestruction = index + 1;
+           // visually indicate which button was clicked
+           buttons.forEach((btn) => btn.classList.remove("clicked"));
+           button.classList.add("clicked");
+         });
       });
     });
   </script>

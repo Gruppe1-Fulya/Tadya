@@ -1,19 +1,19 @@
-package com.example.tadya.repository;
+package com.example.tadya.service;
 
 import com.example.tadya.model.Gebeaude;
+import com.example.tadya.repository.GebeaudeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Repository
-public class JdbcGebeaudeRepository implements GebeaudeRepository {
-
+@Service
+public class GebeaudeService implements GebeaudeRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -25,12 +25,14 @@ public class JdbcGebeaudeRepository implements GebeaudeRepository {
                 rs.getInt("bericht_id"),
                 rs.getInt("auto_id"));
     }
+
     @Override
     public void save(Gebeaude building) {
         jdbcTemplate.update("INSERT INTO gebeaude (osm_id, mel_zeit, fclass, besteatigung, bericht_id, auto_id) VALUES(?,?,?,?,?,?)", new Object[]
                 {building.osm_id(), LocalDateTime.now(), building.fclass(),
                         building.besteatigung(), building.bericht_id(), building.auto_id()});
     }
+
     /*
     @Override
     public int update(Tutorial tutorial) {
@@ -42,7 +44,7 @@ public class JdbcGebeaudeRepository implements GebeaudeRepository {
     public Gebeaude findById(Integer id) {
         try {
             Gebeaude gebeaude = jdbcTemplate.queryForObject("SELECT * FROM gebeaude WHERE osm_id=?",
-                    JdbcGebeaudeRepository::mapRow, id);
+                    GebeaudeService::mapRow, id);
             return gebeaude;
         } catch (IncorrectResultSizeDataAccessException e) {
             return null;
@@ -56,7 +58,7 @@ public class JdbcGebeaudeRepository implements GebeaudeRepository {
 
     @Override
     public List<Gebeaude> findAll() {
-        return jdbcTemplate.query("SELECT * from gebeaude", JdbcGebeaudeRepository::mapRow);
+        return jdbcTemplate.query("SELECT * from gebeaude", GebeaudeService::mapRow);
     }
     /*
     @Override
@@ -69,5 +71,4 @@ public class JdbcGebeaudeRepository implements GebeaudeRepository {
     public int deleteAll() {
         return jdbcTemplate.update("DELETE from gebeaude");
     }
-
 }
