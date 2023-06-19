@@ -1,5 +1,7 @@
 var polygons;
 var zoomLevel;
+var clicked = null;
+
 function GetMap() {
     var map = new Microsoft.Maps.Map("#tadyaMap", {
       credentials:
@@ -62,6 +64,8 @@ function showBuilding(building){
     });
 }
 
+// handling requests
+
 async function getBuildings() {
     try {
         const response = await fetch("http://localhost:8080/map");
@@ -83,7 +87,7 @@ async function sendBuildings(polygon) {
     }
     const requestBody = JSON.stringify(building);
     try {
-        const response = await fetch("http://localhost:8080/map/add",{
+        await fetch("http://localhost:8080/map/add",{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -94,3 +98,60 @@ async function sendBuildings(polygon) {
         console.log("Error: ", error);
     }
 }
+
+async function sendBericht(polygon, tote, verletzte) {
+    try {
+        if(clicked == null) {
+            throw new MyError("Please give a destruction level!");
+        }
+
+        osm_id = parseInt(polygon.target.metadata.osm_id);
+        const bericht = {
+            bericht_id: generateRandomNumber(),
+            tote: parseInt(tote),
+            verletzte: parseInt(verletzte),
+            zustand: "L".concat(clicked),
+            bericht_zeit: new Date().toJSON()
+        }
+        const requestBody = JSON.stringify(bericht);
+        const url = "http://localhost:8080/map/bericht/${osm_id}/${auto_id}"
+    
+        await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: requestBody
+        })
+    } catch (error) {
+        if (error instanceof MyError) {
+            alert(error.message);
+        } else {
+            console.log("Error: ", error);
+        }
+    }
+}
+
+//
+
+function buttonClickHandler(event) {
+    clicked = event.target.innerText;
+}
+
+function deleteRed() {
+    polygons.forEach(polygon => {
+        polygon.setOptions({
+            strokeColor: 'blue',
+            fillColor: Microsoft.Maps.Color.fromHex('#FFFFFF')
+        })
+    });
+}
+
+function generateRandomNumber() {
+    const min = 100000000; // Minimum 10-digit number (inclusive)
+    const max = 999999999; // Maximum 10-digit number (inclusive)
+  
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+  
+    return randomNumber;
+  }
