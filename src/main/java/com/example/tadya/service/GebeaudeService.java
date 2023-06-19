@@ -32,13 +32,7 @@ public class GebeaudeService implements GebeaudeRepository {
                 {building.osm_id(), LocalDateTime.now(), building.fclass(),
                         building.besteatigung(), building.bericht_id(), building.auto_id()});
     }
-    /*
-    @Override
-    public int update(Tutorial tutorial) {
-        return jdbcTemplate.update("UPDATE tutorials SET title=?, description=?, published=? WHERE id=?",
-                new Object[] { tutorial.getTitle(), tutorial.getDescription(), tutorial.isPublished(), tutorial.getId() });
-    }
-    */
+
     @Override
     public Gebeaude findById(Integer id) {
         try {
@@ -59,13 +53,7 @@ public class GebeaudeService implements GebeaudeRepository {
     public List<Gebeaude> findAll() {
         return jdbcTemplate.query("SELECT * from gebeaude", GebeaudeService::mapRow);
     }
-    /*
-    @Override
-    public List<Gebeaude> findByPublished(boolean published) {
-        return jdbcTemplate.query("SELECT * from tutorials WHERE published=?",
-                JdbcGebeaudeRepository::mapRow, published);
-    }
-    */
+
     @Override
     public int deleteAll() {
         return jdbcTemplate.update("DELETE from gebeaude");

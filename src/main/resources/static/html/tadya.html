@@ -22,7 +22,7 @@
           // Shows a databox when a polygon is clicked
           currentPolygon = e;
           showDatabox(e.target);
-          console.log(e.target.metadata.osm_id);
+          console.log(e.target);
         });
       }
     }    
@@ -69,6 +69,7 @@
     });
 
 
+
   </script>
 </head>
 <body id="page2">
@@ -107,9 +108,9 @@
     <div class="rows">
         <div class="row"><br></div>
         <div class="row">Tote:</div>
-        <input type="text" id="id" name="Tote:" /><br />
+        <input type="text" id="tote" name="Tote:" /><br />
         <div class="row">Verletzte:</div>
-        <input type="text" id="id" name="Verletzte" /><br />
+        <input type="text" id="verletzte" name="Verletzte" /><br />
         <div class="row"><br></div>
     </div>
     <div id="confirmbutton"><button>bestätigen</button></div>
@@ -117,13 +118,27 @@
 <div id="databox3"> <!-- Databox 3 ayarları -->
     <div class="close-button" onclick="closeDatabox('databox3')">X</div>
     <div class="row"><br></div>
-    <div id="helpbutton"><button>Berichten</button></div>
+    <div id="helpbutton"><button>Hilfe anfordern</button></div>
 </div>
 
 <script>
+
+  const buttonsDiv = document.querySelector('#databox2 .buttons');
+  const buttons = buttonsDiv.getElementsByTagName('button');
+
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', buttonClickHandler);
+  }
+
   document.getElementById("helpbutton").addEventListener("click", function() {
         console.log("tıkladın");
         sendBuildings(currentPolygon);
+  });
+  document.getElementById("confirmbutton").addEventListener("click", function() {
+        var tote = document.getElementById("tote").value;
+        var verletzte = document.getElementById("verletzte").value;
+        console.log("rapor yollandı");
+        sendBericht(currentPolygon, tote, verletzte);
   });
 </script>
 
