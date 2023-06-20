@@ -105,6 +105,8 @@ async function sendBericht(polygon, tote, verletzte) {
     try {
         if(clicked == null) {
             throw new MyError("Please give a destruction level!");
+        } else if (currentA == null) {
+            throw new MyError("You are not authorised")
         }
 
         osm_id = parseInt(polygon.target.metadata.osm_id);
@@ -136,13 +138,14 @@ async function sendBericht(polygon, tote, verletzte) {
     }
 }
 
-async function getBericht(osm_id, currentBuilding) {
+async function getBericht(osm_id, currentBuilding, currentAuto) {
     const url = "http://localhost:8080/map/bericht/get/" + osm_id;
     try {
         const response = await fetch(url);
         const bericht = await response.json();
         console.log(bericht);
-        showBericht(bericht, currentBuilding);
+        console.log(currentBuilding);
+        showBericht(bericht, currentBuilding, currentAuto);
     } catch (error) {
         console.log('Error: ', error);
     }
@@ -196,18 +199,29 @@ async function getBuilding(osm_id) {
         console.log('Error: ', error);
     }
 }
+async function getAutoWithId(osm_id) {
+    try {
+        const response = await fetch("http://localhost:8080/login/get/" + osm_id);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log('Error: ', error);
+    }
+}
 
 //
-function showBericht(bericht, building) {
+function showBericht(bericht, currentBuilding, currentAuto) {
+    console.log(currentAuto);
+
     if(bericht.bericht_id != 0) {
-        document.getElementById("destruction").innerHTML = "Destruction Level: " + bericht.zustand;
-        document.getElementById("report-time").innerHTML = "Help Report time: " + building.mel_zeit;
-        document.getElementById("alert-time").innerHTML = "Building Report time: " + bericht.bericht_zeit;
-        document.getElementById("deaths").innerHTML = "Death: " + bericht.tote;
-        document.getElementById("injured").innerHTML = "Injured: " + bericht.verletzte;
-        document.getElementById("authorized").innerHTML = "Autohorized: " + currentA.auto_name;
-        document.getElementById("facility").innerHTML = "Facility: " + currentA.einrichtung;
-        document.getElementById("number").innerHTML = "Number: " + "+90" + currentA.nummer;
+        document.getElementById("destruction").innerHTML = "Zerstörungsgrad: " + bericht.zustand;
+        document.getElementById("report-time").innerHTML = "Meldung Zeit: " + currentBuilding.mel_zeit;
+        document.getElementById("alert-time").innerHTML = "Bericht Zeit: " + bericht.bericht_zeit;
+        document.getElementById("deaths").innerHTML = "Tote: " + bericht.tote;
+        document.getElementById("injured").innerHTML = "Verletzte: " + bericht.verletzte;
+        document.getElementById("authorized").innerHTML = "Autorisierte: " + currentAuto.auto_name;
+        document.getElementById("facility").innerHTML = "Einrichtung: " + currentAuto.einrichtung;
+        document.getElementById("number").innerHTML = "Nummer: " + "+90" + currentAuto.nummer;
     } else {
         document.getElementById("destruction").innerHTML = "";
         document.getElementById("report-time").innerHTML = "";

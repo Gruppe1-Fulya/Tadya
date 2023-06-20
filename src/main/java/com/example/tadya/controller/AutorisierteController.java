@@ -19,8 +19,17 @@ public class AutorisierteController {
         repository.setCurrent(autorisierte);
         return repository.getAutorisierte(autorisierte);
     }
+    @GetMapping("/get/{osm_id}")
+    public Autorisierte getAuto(@PathVariable Integer osm_id) {
+        return repository.getAutoWithId(osm_id);
+    }
+
     @GetMapping("/get")
     public Autorisierte getCurrent() {
         return repository.getCurrent();
+    }
+    @GetMapping("/delete")
+    public void deleteCurrent() {
+        repository.deleteCurrent();
     }
 }

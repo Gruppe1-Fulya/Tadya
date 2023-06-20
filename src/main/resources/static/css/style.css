@@ -212,8 +212,8 @@
     display: none;
     position: absolute;
     top: 250px;
-    left: calc(0% + 300px);
-    width: 180px;
+    left: calc(0% + 520px);
+    width: 200px;
     background-color: #f0f0f0;
     border: 1px solid #d0d0d0;
     padding: 10px;
@@ -286,7 +286,7 @@
  #helpbutton button {
      font-size: 18px;
      padding: 8px 16px;
-     background-color: #4CAF50; /* Green */
+     background-color: red; /* Green */
      border: none;
      color: white;
      text-align: center;
