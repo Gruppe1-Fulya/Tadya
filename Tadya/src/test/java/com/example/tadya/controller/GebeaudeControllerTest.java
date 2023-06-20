@@ -56,6 +56,14 @@ class GebeaudeControllerTest {
 
     @Test
     void getBuilding() {
+        Gebeaude building = new Gebeaude(, "Building 1");
+        when(repository.findById(1)).thenReturn(Optional.of(building));
+
+        // Act
+        Gebeaude result = controller.getBuilding(1);
+
+        // Assert
+        assertEquals("Building 1", result.getName());
     }
 
     @Test
