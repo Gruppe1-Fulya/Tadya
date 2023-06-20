@@ -157,6 +157,11 @@
   position: absolute;
 }
 
+#databox2 .buttons {
+    display: flex;
+    justify-content: center;
+}
+
 #databox2 .buttons button {
     margin: 2px;
     padding: 5px 10px;
