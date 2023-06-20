@@ -20,28 +20,31 @@
     var currentBuilding;
     var meldet = false;
     var currentAuto;
+    var logAuto;
     function addClickHandlerToPolygons(polygons) {
       for (let i = 0; i < polygons.length; i++) {
         Microsoft.Maps.Events.addHandler(polygons[i], "click", function (e) {
           // Shows a databox when a polygon is clicked
           currentPolygon = e;
-          getCurrent();
+          getCurrent().then(a => {
+              logAuto = a;
+          })
           getAutoWithId(e.target.metadata.osm_id).then(data => {
               currentAuto = data;
           })
           getBuilding(e.target.metadata.osm_id).then(building => {
-            getBericht(e.target.metadata.osm_id, building, currentAuto);
+              getBericht(e.target.metadata.osm_id, building, currentAuto);
           })
           
-          if (meldet) {
-            showDataboxforadmin(e.target);
+          if (logAuto == null) {
+            showDataboxforuser(e.target);
           }
           else {
-            showDatabox(e.target);  
+            showDataboxforadmin(e.target);
           }
         });
       }
-    }    
+    }
     function showDatabox(polygon) {
       // Databoxların hepsini görünür yapar
       databox.style.display = "block";
@@ -100,14 +103,14 @@
         <button>4</button>
     </div>
     <div class="rows">
-        <div id="destruction" class="row"></div>
-        <div id="report-time" class="row"></div>
-        <div id="alert-time" class="row"></div>
-        <div id="deaths" class="row"></div>
-        <div id="injured" class="row"></div>
-        <div id="authorized" class="row"></div>
-        <div id="facility" class="row"></div>
-        <div id="number" class="row"></div>
+        <div id="destruction" class="row">Zerstörungsgrad: </div>
+        <div id="report-time" class="row">Meldung Zeit: </div>
+        <div id="alert-time" class="row">Bericht Zeit: </div>
+        <div id="deaths" class="row">Tote: </div>
+        <div id="injured" class="row">Verletzte: </div>
+        <div id="authorized" class="row">Autorisierte: </div>
+        <div id="facility" class="row">Einrichtung: </div>
+        <div id="number" class="row">Nummer: </div>
     </div>
 </div>
 <div id="databox2"> <!-- Databox 2 ayarları -->

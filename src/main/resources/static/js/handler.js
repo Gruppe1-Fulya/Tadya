@@ -108,6 +108,9 @@ async function sendBericht(polygon, tote, verletzte) {
         } else if (currentA == null) {
             throw new MyError("You are not authorised")
         }
+        
+        var date = new Date();
+        date.setHours(date.getHours() + 3);
 
         osm_id = parseInt(polygon.target.metadata.osm_id);
         const bericht = {
@@ -115,7 +118,7 @@ async function sendBericht(polygon, tote, verletzte) {
             tote: parseInt(tote),
             verletzte: parseInt(verletzte),
             zustand: "L".concat(clicked-1),
-            bericht_zeit: new Date().toJSON()
+            bericht_zeit: date.toJSON()
         }
         console.log(currentA);
         const requestBody = JSON.stringify(bericht);
@@ -184,6 +187,7 @@ async function getCurrent() {
 try {
     const response = await fetch(url);
     currentA = await response.json();
+    return currentA;
     console.log(currentA);
 } catch (error) {
     console.log('Error: ', error);
@@ -223,14 +227,14 @@ function showBericht(bericht, currentBuilding, currentAuto) {
         document.getElementById("facility").innerHTML = "Einrichtung: " + currentAuto.einrichtung;
         document.getElementById("number").innerHTML = "Nummer: " + "+90" + currentAuto.nummer;
     } else {
-        document.getElementById("destruction").innerHTML = "";
-        document.getElementById("report-time").innerHTML = "";
-        document.getElementById("alert-time").innerHTML = "";
-        document.getElementById("deaths").innerHTML = "";
-        document.getElementById("injured").innerHTML = "";
-        document.getElementById("authorized").innerHTML = "";
-        document.getElementById("facility").innerHTML = "";
-        document.getElementById("number").innerHTML = "";
+        document.getElementById("destruction").innerHTML = "Zerstörungsgrad: "
+        document.getElementById("report-time").innerHTML = "Meldung Zeit: "
+        document.getElementById("alert-time").innerHTML = "Bericht Zeit: "
+        document.getElementById("deaths").innerHTML = "Tote: " 
+        document.getElementById("injured").innerHTML = "Verletzte: "
+        document.getElementById("authorized").innerHTML = "Autorisierte: "
+        document.getElementById("facility").innerHTML = "Einrichtung: "
+        document.getElementById("number").innerHTML = "Nummer: "
     }
 }
 
