@@ -14,7 +14,11 @@ public class BerichtController {
     private BerichtRepository repository;
 
     @PostMapping("/bericht/{osm_id}/{auto_id}")
-    public void sendBericht(@Valid @RequestBody Bericht bericht, @PathVariable int osm_id, @PathVariable int auto_id) {
+    public void sendBericht(@Valid @RequestBody Bericht bericht, @PathVariable Integer osm_id, @PathVariable Integer auto_id) {
         repository.setBericht(bericht, osm_id, auto_id);
+    }
+    @GetMapping("/bericht/get/{osm_id}")
+    public Bericht getBericht(@PathVariable Integer osm_id) {
+        return repository.getBericht(osm_id);
     }
 }

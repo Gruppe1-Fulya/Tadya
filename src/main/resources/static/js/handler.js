@@ -1,5 +1,7 @@
 var polygons;
 var zoomLevel;
+var currentA;
+var currentB;
 var clicked = null;
 
 function GetMap() {
@@ -110,12 +112,13 @@ async function sendBericht(polygon, tote, verletzte) {
             bericht_id: generateRandomNumber(),
             tote: parseInt(tote),
             verletzte: parseInt(verletzte),
-            zustand: "L".concat(clicked),
+            zustand: "L".concat(clicked-1),
             bericht_zeit: new Date().toJSON()
         }
+        console.log(currentA);
         const requestBody = JSON.stringify(bericht);
-        const url = "http://localhost:8080/map/bericht/${osm_id}/${auto_id}"
-    
+        const url = "http://localhost:8080/map/bericht/" + osm_id + "/" + currentA.auto_id;
+        console.log(requestBody);
         await fetch(url, {
             method: 'POST',
             headers: {
@@ -123,6 +126,7 @@ async function sendBericht(polygon, tote, verletzte) {
             },
             body: requestBody
         })
+        clicked = null;
     } catch (error) {
         if (error instanceof MyError) {
             alert(error.message);
@@ -132,7 +136,89 @@ async function sendBericht(polygon, tote, verletzte) {
     }
 }
 
+async function getBericht(osm_id, currentBuilding) {
+    const url = "http://localhost:8080/map/bericht/get/" + osm_id;
+    try {
+        const response = await fetch(url);
+        const bericht = await response.json();
+        console.log(bericht);
+        showBericht(bericht, currentBuilding);
+    } catch (error) {
+        console.log('Error: ', error);
+    }
+}
+async function isValid(id, password) {
+    const auto = {
+        auto_id: parseInt(id),
+        auto_name: null,
+        password: password,
+        einrichtung: null,
+        nummer: null
+    }
+    const requestBody = JSON.stringify(auto);
+    try {
+        const response = await fetch("http://localhost:8080/login",{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: requestBody
+        });
+        const a = await response.json();
+        console.log(a);
+        if(a.auto_id != 1) {
+            window.location.href = "tadya.html";
+        } else {
+            alert("There is no such a User or Id or Password is wrong!")
+        }
+
+    } catch (error) {
+        console.log("Error: ", error);
+    }
+}
+async function getCurrent() {
+    const url = "http://localhost:8080/login/get";
+try {
+    const response = await fetch(url);
+    currentA = await response.json();
+    console.log(currentA);
+} catch (error) {
+    console.log('Error: ', error);
+}
+}
+
+async function getBuilding(osm_id) {
+    try {
+        const response = await fetch("http://localhost:8080/map/get/" + osm_id);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log('Error: ', error);
+    }
+}
+
 //
+function showBericht(bericht, building) {
+    if(bericht.bericht_id != 0) {
+        document.getElementById("destruction").innerHTML = "Destruction Level: " + bericht.zustand;
+        document.getElementById("report-time").innerHTML = "Help Report time: " + building.mel_zeit;
+        document.getElementById("alert-time").innerHTML = "Building Report time: " + bericht.bericht_zeit;
+        document.getElementById("deaths").innerHTML = "Death: " + bericht.tote;
+        document.getElementById("injured").innerHTML = "Injured: " + bericht.verletzte;
+        document.getElementById("authorized").innerHTML = "Autohorized: " + currentA.auto_name;
+        document.getElementById("facility").innerHTML = "Facility: " + currentA.einrichtung;
+        document.getElementById("number").innerHTML = "Number: " + "+90" + currentA.nummer;
+    } else {
+        document.getElementById("destruction").innerHTML = "";
+        document.getElementById("report-time").innerHTML = "";
+        document.getElementById("alert-time").innerHTML = "";
+        document.getElementById("deaths").innerHTML = "";
+        document.getElementById("injured").innerHTML = "";
+        document.getElementById("authorized").innerHTML = "";
+        document.getElementById("facility").innerHTML = "";
+        document.getElementById("number").innerHTML = "";
+    }
+}
 
 function buttonClickHandler(event) {
     clicked = event.target.innerText;
@@ -155,3 +241,9 @@ function generateRandomNumber() {
   
     return randomNumber;
   }
+
+  class MyError extends Error {
+    constructor(message) {
+      super(message);
+    }
+}
