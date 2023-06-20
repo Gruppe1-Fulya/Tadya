@@ -16,6 +16,9 @@
     <p>Created by Berkay Biçer and Yiğit Alıcıkuş</p>
 </div>
 <script>
+        window.addEventListener("load", function() {
+            deleteCurrent();
+        })
         document.getElementById("redirectBtn").addEventListener("click", function() {
         //tıklanınca tadya sayfasına git
         window.location.href = "html/tadya.html";
@@ -25,6 +28,14 @@
         //tıklanınca login sayfasına git
         window.location.href = "html/login.html";
         });
-    </script>
+
+        async function deleteCurrent() {
+            try {
+                await fetch("http://localhost:8080/login/delete");
+            } catch (error) {
+                console.log('Error: ', error);
+            }
+        }
+</script>
 </body>
 </html>

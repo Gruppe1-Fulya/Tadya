@@ -7,4 +7,7 @@ public interface AutorisierteRepository {
 
     Autorisierte getCurrent();
     void setCurrent(Autorisierte current_auto);
+    void deleteCurrent();
+
+    Autorisierte getAutoWithId(Integer osm_id);
 }

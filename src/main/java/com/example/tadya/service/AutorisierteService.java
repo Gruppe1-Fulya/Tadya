@@ -48,4 +48,22 @@ public class AutorisierteService implements AutorisierteRepository {
             System.out.println(e.getMessage());
         }
     }
+
+    @Override
+    public void deleteCurrent() {
+        current = null;
+    }
+
+    @Override
+    public Autorisierte getAutoWithId(Integer osm_id) {
+        try {
+            Autorisierte autorisierte = jdbcTemplate.queryForObject("SELECT * FROM autorisierte WHERE autorisierte.auto_id =  (SELECT gebeaude.auto_id FROM gebeaude WHERE gebeaude.osm_id = ?)",
+                    AutorisierteService::mapRow, osm_id);
+            System.out.println(autorisierte);
+            return autorisierte;
+        } catch (DataAccessException e) {
+            System.out.println(e.getMessage());
+            return new Autorisierte(1,null ,null, null, null);
+        }
+    }
 }

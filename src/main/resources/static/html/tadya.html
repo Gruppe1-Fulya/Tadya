@@ -18,18 +18,27 @@
 
     var currentPolygon;
     var currentBuilding;
+    var meldet = false;
+    var currentAuto;
     function addClickHandlerToPolygons(polygons) {
       for (let i = 0; i < polygons.length; i++) {
         Microsoft.Maps.Events.addHandler(polygons[i], "click", function (e) {
           // Shows a databox when a polygon is clicked
           currentPolygon = e;
           getCurrent();
+          getAutoWithId(e.target.metadata.osm_id).then(data => {
+              currentAuto = data;
+          })
           getBuilding(e.target.metadata.osm_id).then(building => {
-            console.log(building);
-            getBericht(e.target.metadata.osm_id, building);
+            getBericht(e.target.metadata.osm_id, building, currentAuto);
           })
           
-          showDatabox(e.target);
+          if (meldet) {
+            showDataboxforadmin(e.target);
+          }
+          else {
+            showDatabox(e.target);  
+          }
         });
       }
     }    
