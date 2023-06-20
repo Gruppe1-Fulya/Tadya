@@ -208,97 +208,61 @@
      background-color: #3e8e41;
  }
 
-#databox3 {
-    display: none;
-    position: absolute;
-    top: 250px;
-    left: calc(0% + 300px);
-    width: 200px;
-    background-color: #f0f0f0;
-    border: 1px solid #d0d0d0;
-    padding: 10px;
-    z-index: 1;
-    font-family: Arial, sans-serif;
-  }
-
-  #databox3 h2 {
-    margin-top: 0;
-  }
-
-  #databox3 p {
-    margin: 10px 0;
-  }
-
-  #databox3 .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-
-  #databox3 .close:hover {
-    color: #ccc;
-  }
-
-  #databox3 .buttons {
-      display: flex;
-  }
-
-  #databox3 .buttons button {
-    margin: 2px;
-    padding: 5px 10px;
+ #databox3 {
+  display: none;
+  position: absolute;
+  top: 639px;
+  left: calc(0½);
+  width: 270px;
+  background-color: #f0f0f0;
+  border: 1px solid #d0d0d0;
+  padding: 10px;
+  z-index: 1;
+  font-family: Arial, sans-serif;
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
 }
 
-  #databox3 .buttons button:nth-of-type(1) {
-      background-color: #00ff00;
-  }
+#databox3 h2 {
+  margin-top: 0;
+}
 
-  #databox3 .buttons button:nth-of-type(2) {
-      background-color: #7fff00;
-  }
+#databox3 p {
+  margin: 10px 0;
+}
 
-  #databox3 .buttons button:nth-of-type(3) {
-      background-color: #ffff00;
-  }
+#databox3 .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
 
-  #databox3 .buttons button:nth-of-type(4) {
-      background-color: #ff7f00;
-  }
+#databox3 .close-button:hover {
+  color: #ccc;
+}
 
-  #databox3 .buttons button:nth-of-type(5) {
-      background-color: #ff0000;
-  }
+#helpbutton {
+   text-align: center;
+   margin-top: -15px;
+}
 
-  #databox3 .rows {
-      display: flex;
-      flex-direction: column;
-  }
+#helpbutton button {
+   font-size: 18px;
+   padding: 8px 16px;
+   background-color: #4CAF50; /* Green */
+   border: none;
+   color: white;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   cursor: pointer;
+   border-radius: 12px;
+}
 
-  #databox3 .rows .row {
-      padding: 10px;
-  }
-
- #helpbutton {
-     text-align: center;
- }
-
- #helpbutton button {
-     font-size: 18px;
-     padding: 8px 16px;
-     background-color: red; /* Green */
-     border: none;
-     color: white;
-     text-align: center;
-     text-decoration: none;
-     display: inline-block;
-     cursor: pointer;
-     border-radius: 12px;
- }
-
- #helpbutton button:hover {
-     background-color: #3e8e41;
- }
+#helpbutton button:hover {
+   background-color: #3e8e41;
+}
 
 .clicked {
     /* add styles for clicked button */
