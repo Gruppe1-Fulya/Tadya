@@ -16,6 +16,11 @@ public class AutorisierteController {
     @PostMapping
     public Autorisierte validate(@Valid @RequestBody Autorisierte autorisierte) {
         System.out.println(autorisierte);
+        repository.setCurrent(autorisierte);
         return repository.getAutorisierte(autorisierte);
+    }
+    @GetMapping("/get")
+    public Autorisierte getCurrent() {
+        return repository.getCurrent();
     }
 }

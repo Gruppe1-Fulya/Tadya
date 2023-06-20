@@ -7,7 +7,7 @@ import java.util.List;
 public interface BerichtRepository {
 
     List<Bericht> findAll();
-    void setBericht(Bericht bericht, int osm_id, int auto_id);
-
+    void setBericht(Bericht bericht, Integer osm_id, Integer auto_id);
+    Bericht getBericht(Integer osm_id);
 
 }

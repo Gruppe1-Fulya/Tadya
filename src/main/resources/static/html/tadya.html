@@ -11,18 +11,25 @@
             defer
     ></script>
     <script src="../js/handler.js"> </script>
+    <script src="../js/login.js"></script>
     <link rel="stylesheet" href="../css/style.css" />
     <script type="text/javascript">
     let levelofdestruction;
 
     var currentPolygon;
+    var currentBuilding;
     function addClickHandlerToPolygons(polygons) {
       for (let i = 0; i < polygons.length; i++) {
         Microsoft.Maps.Events.addHandler(polygons[i], "click", function (e) {
           // Shows a databox when a polygon is clicked
           currentPolygon = e;
+          getCurrent();
+          getBuilding(e.target.metadata.osm_id).then(building => {
+            console.log(building);
+            getBericht(e.target.metadata.osm_id, building);
+          })
+          
           showDatabox(e.target);
-          console.log(e.target);
         });
       }
     }    
@@ -82,17 +89,16 @@
         <button>2</button>
         <button>3</button>
         <button>4</button>
-        <button>5</button>
     </div>
     <div class="rows">
-        <div id="destruction" class="row">Level of destruction: 4</div>
-        <div id="report-time" class="row">Bericht Zeit: 2023-06-01 16:02:12</div>
-        <div id="alert-time" class="row">Meldung Zeit: 2023-06-01 17:09:42</div>
-        <div id="deaths" class="row">Tote: 0</div>
-        <div id="injured" class="row">Verletzte: 8</div>
-        <div id="authorized" class="row">Autorisierte: Ahmet Sonuç</div>
-        <div id="facility" class="row">Einrichtung: AFAD</div>
-        <div id="number" class="row">Nummer: 05214354532</div>
+        <div id="destruction" class="row"></div>
+        <div id="report-time" class="row"></div>
+        <div id="alert-time" class="row"></div>
+        <div id="deaths" class="row"></div>
+        <div id="injured" class="row"></div>
+        <div id="authorized" class="row"></div>
+        <div id="facility" class="row"></div>
+        <div id="number" class="row"></div>
     </div>
 </div>
 <div id="databox2"> <!-- Databox 2 ayarları -->
@@ -103,7 +109,6 @@
         <button>2</button>
         <button>3</button>
         <button>4</button>
-        <button>5</button>
     </div>
     <div class="rows">
         <div class="row"><br></div>
@@ -131,14 +136,14 @@
   }
 
   document.getElementById("helpbutton").addEventListener("click", function() {
-        console.log("tıkladın");
-        sendBuildings(currentPolygon);
+      console.log("tıkladın");
+      sendBuildings(currentPolygon);
   });
   document.getElementById("confirmbutton").addEventListener("click", function() {
-        var tote = document.getElementById("tote").value;
-        var verletzte = document.getElementById("verletzte").value;
-        console.log("rapor yollandı");
-        sendBericht(currentPolygon, tote, verletzte);
+      var tote = document.getElementById("tote").value;
+      var verletzte = document.getElementById("verletzte").value;
+      console.log("rapor yollandı");
+      sendBericht(currentPolygon, tote, verletzte);
   });
 </script>
 

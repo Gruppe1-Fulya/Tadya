@@ -25,6 +25,10 @@ public class GebeaudeController {
     public List<Gebeaude> findAll() {
         return repository.findAll();
     }
+    @GetMapping("/get/{osm_id}")
+    public Gebeaude getBuilding(@PathVariable Integer osm_id) {
+        return repository.findById(osm_id);
+    }
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/add")
     public void sendHelpRequest(@Valid @RequestBody Gebeaude gebeaude) {
