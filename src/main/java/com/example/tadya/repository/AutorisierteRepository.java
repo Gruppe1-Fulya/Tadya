@@ -1,7 +1,9 @@
 package com.example.tadya.repository;
 
 import com.example.tadya.model.Autorisierte;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface AutorisierteRepository {
     Autorisierte getAutorisierte(Autorisierte auto);
 

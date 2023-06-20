@@ -1,9 +1,10 @@
 package com.example.tadya.repository;
 
 import com.example.tadya.model.Bericht;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface BerichtRepository {
 
     List<Bericht> findAll();
